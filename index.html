@@ -156,58 +156,65 @@ h1{
     </div>
 </div>
 
-<!-- WORKING Romantic Music -->
+<!-- Romantic Music -->
 <audio id="bgMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5b6d1f0a8e.mp3?filename=romantic-love-11567.mp3" type="audio/mp3">
 </audio>
 
 <script>
-let personName = prompt("Enter your name ❤️") || "My Love";
+document.addEventListener("DOMContentLoaded", function() {
+    let personName = prompt("Enter your name ❤️") || "My Love";
 
-document.getElementById("question").innerText =
-personName + ", will you be my Valentine? 💖";
+    document.getElementById("question").innerText =
+        personName + ", will you be my Valentine? 💖";
 
-const noBtn = document.getElementById("noBtn");
+    const noBtn = document.getElementById("noBtn");
 
-/* Move NO button */
-noBtn.addEventListener("mouseover",()=>{
-    const x = Math.random()*300 - 150;
-    const y = Math.random()*200 - 100;
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    /* Move NO button */
+    noBtn.addEventListener("mouseover",()=>{
+        const x = Math.random()*300 - 150;
+        const y = Math.random()*200 - 100;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    /* Show envelope + play music */
+    function showEnvelope(){
+        document.querySelector(".buttons").style.display="none";
+        document.getElementById("question").style.display="none";
+        document.getElementById("wrapper").style.display="flex";
+
+        document.getElementById("loveMessage").innerHTML=
+            "I knew you would say yes. ❤️<br><br>I love you 💕";
+
+        let music = document.getElementById("bgMusic");
+        music.volume = 0.6;
+        music.play().catch(()=>{});
+    }
+
+    /* Open envelope */
+    function openEnvelope(){
+        document.getElementById("envelope").classList.toggle("open");
+    }
+
+    /* Floating hearts */
+    function createHeart(){
+        const heart=document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="❤";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(Math.random()*20+10)+"px";
+        heart.style.animationDuration=(Math.random()*3+3)+"s";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),6000);
+    }
+    setInterval(createHeart,300);
+
+    // Expose functions globally for HTML onclick
+    window.showEnvelope = showEnvelope;
+    window.openEnvelope = openEnvelope;
 });
-
-/* Show envelope + play music */
-function showEnvelope(){
-    document.querySelector(".buttons").style.display="none";
-    document.getElementById("question").style.display="none";
-    document.getElementById("wrapper").style.display="flex";
-
-    document.getElementById("loveMessage").innerHTML=
-    "I knew you would say yes. ❤️<br><br>I love you 💕";
-
-    let music = document.getElementById("bgMusic");
-    music.volume = 0.6;
-    music.play().catch(()=>{});
-}
-
-/* Open envelope */
-function openEnvelope(){
-    document.getElementById("envelope").classList.toggle("open");
-}
-
-/* Floating hearts */
-function createHeart(){
-    const heart=document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML="❤";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(Math.random()*20+10)+"px";
-    heart.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
-}
-setInterval(createHeart,300);
 </script>
 
 </body>
 </html>
+
